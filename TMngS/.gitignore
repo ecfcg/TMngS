@@ -26,5 +26,10 @@ build
 hs_err_pid*
 
 # Eclipse
+.classpath
+.factorypath
+.project
+.settings
 /bin
-
+/.apt_generated/
+/.apt_generated_tests/
