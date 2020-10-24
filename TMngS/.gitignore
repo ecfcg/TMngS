@@ -33,3 +33,6 @@ hs_err_pid*
 /bin
 /.apt_generated/
 /.apt_generated_tests/
+
+# Lombok Plugin
+lombok.config
