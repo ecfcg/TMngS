@@ -43,20 +43,19 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
-eclipse {
-    classpath {
-        file {
-            whenMerged { classpath ->
-                classpath.entries.removeAll { it.path == '.apt_generated' }
-            }
-            withXml { provider ->
-                def node = provider.asNode()
-                // specify output path for .apt_generated
-                node.appendNode( 'classpathentry', [ kind: 'src', output: 'bin/main', path: '.apt_generated'])
-            }
-        }
-    }
-    jdt {
-        javaRuntimeName = 'JavaSE-1.8'
-    }
+// Doma
+def domaResources = ['doma.compile.config', 'META-INF/**/*.sql', 'META-INF/**/*.script']
+
+task copyDomaResourcesJava(type: Copy) {
+    from sourceSets.main.resources.srcDirs
+    into compileJava.destinationDir
+    include domaResources
+}
+
+compileJava {
+    dependsOn copyDomaResourcesJava
+}
+
+processResources {
+    exclude domaResources
 }
