@@ -5,6 +5,14 @@
  * For more details take a look at the Java Libraries chapter in the Gradle
  * User Manual available at https://docs.gradle.org/6.3/userguide/java_library_plugin.html
  */
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.postgresql:postgresql:42.1.4'
+    }
+}
 
 plugins {
     // Apply the java-library plugin to add support for Java Library
@@ -17,6 +25,8 @@ plugins {
     // Doma
     id 'com.diffplug.eclipse.apt' version '3.25.0'
     id 'org.seasar.doma.compile' version '1.1.0'
+
+    id 'org.seasar.doma.codegen' version '1.2.1'
 }
 
 repositories {
@@ -35,8 +45,8 @@ dependencies {
     implementation "org.seasar.doma:doma-core:2.44.0"
     annotationProcessor "org.seasar.doma:doma-processor:2.44.0"
 
-    // sqlite
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.7.2'
+    // postgres
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
 
     // JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
@@ -58,4 +68,24 @@ compileJava {
 
 processResources {
     exclude domaResources
+}
+// doma codegen plugin
+domaCodeGen {
+    // make an arbitrary named block
+    dev {
+        url = 'jdbc:postgresql://127.0.0.1:5432/tmngs'
+        user = 'tmngs'
+        password = 'tmngs'
+        schemaName = 'tmngs'
+        sourceDir = file("$projectDir/doma/src/main/java")
+        resourceDir = file("$projectDir/doma/src/main/resources")
+        testSourceDir = file("$projectDir/doma/test/main/java")
+        entity {
+            useMappedSuperclass = false
+            packageName = 'tmngs.db.entity'
+        }
+        dao {
+            packageName = 'tmngs.db.dao'
+        }
+    }
 }
