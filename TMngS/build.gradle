@@ -26,21 +26,15 @@ plugins {
     id 'com.diffplug.eclipse.apt' version '3.25.0'
     id 'org.seasar.doma.compile' version '1.1.0'
 
+    // Doma-codegen
     id 'org.seasar.doma.codegen' version '1.2.1'
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
     jcenter()
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:28.2-jre'
-
     // Doma
     implementation "org.seasar.doma:doma-core:2.44.0"
     annotationProcessor "org.seasar.doma:doma-processor:2.44.0"
@@ -71,15 +65,15 @@ processResources {
 }
 // doma codegen plugin
 domaCodeGen {
-    // make an arbitrary named block
-    dev {
+    tmngs {
         url = 'jdbc:postgresql://127.0.0.1:5432/tmngs'
         user = 'tmngs'
         password = 'tmngs'
         schemaName = 'tmngs'
         sourceDir = file("$projectDir/doma/src/main/java")
         resourceDir = file("$projectDir/doma/src/main/resources")
-        testSourceDir = file("$projectDir/doma/test/main/java")
+        testSourceDir = file("$projectDir/doma/src/test/java")
+        templateDir = file("$projectDir/doma/ftl")
         entity {
             useMappedSuperclass = false
             packageName = 'tmngs.db.entity'
