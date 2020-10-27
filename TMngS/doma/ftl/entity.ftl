@@ -10,6 +10,7 @@ package ${packageName};
 <#list importNames as importName>
 import ${importName};
 </#list>
+import lombok.Data;
 
 /**
 <#if showDbComment && comment??>
@@ -23,6 +24,7 @@ import ${importName};
 <#if showCatalogName && catalogName?? || showSchemaName && schemaName?? || showTableName && tableName??>
 @Table(<#if showCatalogName && catalogName??>catalog = "${catalogName}"</#if><#if showSchemaName && schemaName??><#if showCatalogName && catalogName??>, </#if>schema = "${schemaName}"</#if><#if showTableName><#if showCatalogName && catalogName?? || showSchemaName && schemaName??>, </#if>name = "${tableName}"</#if>)
 </#if>
+@Data
 public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if><#if superclassSimpleName??> extends ${superclassSimpleName}</#if> {
 <#list ownEntityPropertyDescs as property>
 
@@ -48,34 +50,12 @@ public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySu
   <#if property.showColumnName && property.columnName??>
     @Column(name = "${property.columnName}")
   </#if>
-    <#if !useAccessor>public </#if>${property.propertyClassSimpleName} ${property.name};
+    ${property.propertyClassSimpleName} ${property.name};
 </#list>
 <#if originalStatesPropertyName??>
 
     /** */
     @OriginalStates
     <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if> ${originalStatesPropertyName};
-</#if>
-<#if useAccessor>
-  <#list ownEntityPropertyDescs as property>
-
-    /** 
-     * Returns the ${property.name}.
-     * 
-     * @return the ${property.name}
-     */
-    public ${property.propertyClassSimpleName} get${property.name?cap_first}() {
-        return ${property.name};
-    }
-
-    /** 
-     * Sets the ${property.name}.
-     * 
-     * @param ${property.name} the ${property.name}
-     */
-    public void set${property.name?cap_first}(${property.propertyClassSimpleName} ${property.name}) {
-        this.${property.name} = ${property.name};
-    }
-  </#list>
 </#if>
 }
