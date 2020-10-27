@@ -28,34 +28,34 @@ import lombok.Data;
 public class <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if><#if superclassSimpleName??> extends ${superclassSimpleName}</#if> {
 <#list ownEntityPropertyDescs as property>
 
-  <#if showDbComment && property.comment??>
-    /** ${property.comment} */
-  <#else>
-    /** */
+ <#if showDbComment && property.comment??>
+  /** ${property.comment} */
+ <#else>
+  /** */
+ </#if>
+ <#if property.id>
+  @Id
+  <#if property.generationType??>
+  @GeneratedValue(strategy = ${property.generationType.referenceName})
+   <#if property.generationType == "SEQUENCE">
+  @SequenceGenerator(sequence = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
+   <#elseif property.generationType == "TABLE">
+  @TableGenerator(pkColumnValue = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
+   </#if>
   </#if>
-  <#if property.id>
-    @Id
-    <#if property.generationType??>
-    @GeneratedValue(strategy = ${property.generationType.referenceName})
-      <#if property.generationType == "SEQUENCE">
-    @SequenceGenerator(sequence = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
-      <#elseif property.generationType == "TABLE">
-    @TableGenerator(pkColumnValue = "${tableName}_${property.columnName}"<#if property.initialValue??>, initialValue = ${property.initialValue}</#if><#if property.allocationSize??>, allocationSize = ${property.allocationSize}</#if>)
-      </#if>
-    </#if>
-  </#if>
-  <#if property.version>
-    @Version
-  </#if>
-  <#if property.showColumnName && property.columnName??>
-    @Column(name = "${property.columnName}")
-  </#if>
-    ${property.propertyClassSimpleName} ${property.name};
+ </#if>
+ <#if property.version>
+  @Version
+ </#if>
+ <#if property.showColumnName && property.columnName??>
+  @Column(name = "${property.columnName}")
+ </#if>
+  ${property.propertyClassSimpleName} ${property.name};
 </#list>
 <#if originalStatesPropertyName??>
 
-    /** */
-    @OriginalStates
-    <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if> ${originalStatesPropertyName};
+  /** */
+  @OriginalStates
+  <#if entityPrefix??>${entityPrefix}</#if>${simpleName}<#if entitySuffix??>${entitySuffix}</#if> ${originalStatesPropertyName};
 </#if>
 }
