@@ -6,80 +6,81 @@
  * User Manual available at https://docs.gradle.org/6.3/userguide/java_library_plugin.html
  */
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.postgresql:postgresql:42.1.4'
-    }
+  repositories {
+      mavenCentral()
+  }
+  dependencies {
+      classpath 'org.postgresql:postgresql:42.1.4'
+  }
 }
 
 plugins {
-    // Apply the java-library plugin to add support for Java Library
-    id 'java-library'
-    id 'eclipse'
+  // Apply the java-library plugin to add support for Java Library
+  id 'java-library'
+  id 'eclipse'
 
-    // Lombok
-    id 'io.freefair.lombok' version '5.2.1'
+  // Lombok
+  id 'io.freefair.lombok' version '5.2.1'
 
-    // Doma
-    id 'com.diffplug.eclipse.apt' version '3.25.0'
-    id 'org.seasar.doma.compile' version '1.1.0'
+  // Doma
+  id 'com.diffplug.eclipse.apt' version '3.25.0'
+  id 'org.seasar.doma.compile' version '1.1.0'
 
-    // Doma-codegen
-    id 'org.seasar.doma.codegen' version '1.2.1'
+  // Doma-codegen
+  id 'org.seasar.doma.codegen' version '1.2.1'
 }
 
 repositories {
-    jcenter()
+  jcenter()
 }
 
 dependencies {
-    // Doma
-    implementation "org.seasar.doma:doma-core:2.44.0"
-    annotationProcessor "org.seasar.doma:doma-processor:2.44.0"
+  // Doma
+  implementation "org.seasar.doma:doma-core:2.44.0"
+  annotationProcessor "org.seasar.doma:doma-processor:2.44.0"
 
-    // postgres
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+  // postgres
+  compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
 
-    // JUnit 5
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+  // JUnit 5
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 // Doma
 def domaResources = ['doma.compile.config', 'META-INF/**/*.sql', 'META-INF/**/*.script']
 
 task copyDomaResourcesJava(type: Copy) {
-    from sourceSets.main.resources.srcDirs
-    into compileJava.destinationDir
-    include domaResources
+  from sourceSets.main.resources.srcDirs
+  into compileJava.destinationDir
+  include domaResources
 }
 
 compileJava {
-    dependsOn copyDomaResourcesJava
+  dependsOn copyDomaResourcesJava
 }
 
 processResources {
-    exclude domaResources
+  exclude domaResources
 }
+
 // doma codegen plugin
 domaCodeGen {
-    tmngs {
-        url = 'jdbc:postgresql://127.0.0.1:5432/tmngs'
-        user = 'tmngs'
-        password = 'tmngs'
-        schemaName = 'tmngs'
-        sourceDir = file("$projectDir/doma/src/main/java")
-        resourceDir = file("$projectDir/doma/src/main/resources")
-        testSourceDir = file("$projectDir/doma/src/test/java")
-        templateDir = file("$projectDir/doma/ftl")
-        entity {
-            useMappedSuperclass = false
-            packageName = 'tmngs.db.entity'
-        }
-        dao {
-            packageName = 'tmngs.db.dao'
-        }
+  tmngs {
+    url = 'jdbc:postgresql://127.0.0.1:5432/tmngs'
+    user = 'tmngs'
+    password = 'tmngs'
+    schemaName = 'tmngs'
+    sourceDir = file("$projectDir/doma/src/main/java")
+    resourceDir = file("$projectDir/doma/src/main/resources")
+    testSourceDir = file("$projectDir/doma/src/test/java")
+    templateDir = file("$projectDir/doma/ftl")
+    entity {
+      useMappedSuperclass = false
+      packageName = 'tmngs.db.entity'
     }
+    dao {
+      packageName = 'tmngs.db.dao'
+    }
+  }
 }
