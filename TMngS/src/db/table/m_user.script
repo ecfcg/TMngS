@@ -1,4 +1,4 @@
-drop table if exists tmngs.m_user cascade;
+drop table if exists m_user cascade;
 create table tmngs.m_user (
     user_id char(32) primary key,
     password char(32) not null

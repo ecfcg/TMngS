@@ -1,4 +1,4 @@
-drop table if exists tmngs.m_holiday cascade;
+drop table if exists m_holiday cascade;
 create table tmngs.m_holiday (
     holiday date primary key
 );
