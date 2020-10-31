@@ -40,11 +40,14 @@ dependencies {
   annotationProcessor "org.seasar.doma:doma-processor:2.44.0"
 
   // postgres
-  compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+  implementation 'org.postgresql:postgresql:42.1.4'
 
   // JUnit 5
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+  
+  // DBUnit
+  testImplementation 'org.dbunit:dbunit:2.7.0'
 }
 
 // Doma
