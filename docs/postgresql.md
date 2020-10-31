@@ -54,3 +54,15 @@ $ createdb -U tmngs tmngs
 $ psql -f ./create_table/m_holiday.sql -U tmngs -d tmngs
 ```
 
+## テスト用ユーザを作成
+```
+$ psql -U postgres -d tmngs
+# create role tmngs_test with createdb login encrypted password 'tmngs_test';
+# exit
+```
+
+### パスワードを設定
+```
+$ echo 127.0.0.1:5432:tmngs:tmngs_test:tmngs_test > ~/.pgpass
+$ chmod 600 ~/.pgpass
+```
