@@ -38,7 +38,7 @@ class HolidayJudgerTest extends DataBaseTestBase {
   }
 
   @Test
-  void createTest() {
+  public void createTest() {
     @SuppressWarnings("unchecked")
     Set<LocalDate> holidays =
         FieldAccessor.get(holidayJudger, "holidays", HolidayJudger.class, Set.class);
@@ -49,7 +49,7 @@ class HolidayJudgerTest extends DataBaseTestBase {
 
   @ParameterizedTest
   @CsvSource({"false, 2020-05-01", "true, 2020-05-05", "true, 2020-05-09", "true, 2020-05-10"})
-  void isHolidayTest(boolean expected, LocalDate date) {
+  public void isHolidayTest(boolean expected, LocalDate date) {
     assertEquals(expected, holidayJudger.isHoliday(date));
   }
 }
