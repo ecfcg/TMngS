@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import tmngs.test.AbstractDataBaseTestBase;
+import tmngs.test.DataBaseTestBase;
 import tmngs.test.OnceDataManager;
 import tmngs.test.TestDataManager;
 import tmngs.test.reflect.FieldAccessor;
 
-class HolidayJudgerTest extends AbstractDataBaseTestBase {
+class HolidayJudgerTest extends DataBaseTestBase {
   private static Path testDataDir = TestDataManager.getTestDataDir();
   private static OnceDataManager odm = OnceDataManager.of(List.of(testDataDir.resolve("default")));
 

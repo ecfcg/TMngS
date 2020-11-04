@@ -13,7 +13,7 @@ import tmngs.test.dbunit.OperationUtil;
 /**
  * DB関連テスト用の基底クラス
  */
-public abstract class AbstractDataBaseTestBase {
+public abstract class DataBaseTestBase {
   private final DbConfig config = DbConfig.singleton();
   private final LocalTransactionManager tm =
       (LocalTransactionManager) config.getTransactionManager();
