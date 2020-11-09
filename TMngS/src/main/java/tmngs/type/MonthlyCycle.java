@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.function.Function;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import tmngs.util.date.DateAdjuster;
 
 /**
  * 月次調整区分
@@ -12,7 +11,7 @@ import tmngs.util.date.DateAdjuster;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum MonthlyCycle {
   /** 基準日 */
-  BASE_DAY(DateAdjuster.NOT_ADJUST),
+  BASE_DAY(Function.identity()),
   /** 月初日 */
   FIRST_DAY_OF_THE_MONTH(d -> LocalDate.of(d.getYear(), d.getMonth(), 1)),
   /** 月末 */
