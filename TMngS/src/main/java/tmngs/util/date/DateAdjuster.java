@@ -19,12 +19,19 @@ public enum DateAdjuster {
   /** 翌日を取得する. */
   FOLLOWING_DAY(d -> d.plusDays(1L));
 
+  /** 調整関数 */
   private final Function<LocalDate, LocalDate> adjuster;
 
+  /** 調整を実行する */
   public LocalDate apply(LocalDate target) {
     return adjuster.apply(target);
   }
 
+  /**
+   * 逆向きを取得する
+   * 
+   * @return 逆向きのDateAdjuster
+   */
   public DateAdjuster getReverser() {
     switch (this) {
       case NOT_ADJUST:
