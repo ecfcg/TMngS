@@ -7,7 +7,7 @@ import tmngs.dto.AdjustedDate;
 import tmngs.test.DataBaseTestBase;
 import tmngs.test.reflect.FieldAccessor;
 import tmngs.type.HolidayAdjustment;
-import tmngs.type.MonthlyCycleType;
+import tmngs.type.MonthlyCycle;
 
 public class CycleCalculatorTest extends DataBaseTestBase {
 
@@ -34,7 +34,7 @@ public class CycleCalculatorTest extends DataBaseTestBase {
     var baseDate = LocalDate.of(2020, 5, 3);
 
     assertEquals(AdjustedDate.of(expectedBase, expectedAdjusted),
-        cycleCalculator.calcNextCycleByMonth(baseDate, 0, MonthlyCycleType.BASE_DAY,
+        cycleCalculator.calcNextCycleByMonth(baseDate, 0, MonthlyCycle.BASE_DAY,
             HolidayAdjustment.BEFORE_BUSINESS_DAY));
   }
 }

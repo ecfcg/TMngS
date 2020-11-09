@@ -10,7 +10,7 @@ import tmngs.util.date.DateAdjuster;
  * 月次調整区分
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum MonthlyCycleType {
+public enum MonthlyCycle {
   /** 基準日 */
   BASE_DAY(DateAdjuster.NOT_ADJUST),
   /** 月初日 */
