@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import tmngs.dto.AdjustedDate;
-import tmngs.type.HolidayAdjustType;
+import tmngs.type.HolidayAdjustment;
 import tmngs.type.MonthlyCycleType;
 
 /**
@@ -36,7 +36,7 @@ public class CycleCalculator {
    * @return 調整前後の日付
    */
   public AdjustedDate calcNextCycleByMonth(LocalDate baseDate, int cycle,
-      MonthlyCycleType montylyAdjustType, HolidayAdjustType holidayAdjustType) {
+      MonthlyCycleType montylyAdjustType, HolidayAdjustment holidayAdjustType) {
 
     LocalDate nextBaseDate = montylyAdjustType.calcNext(baseDate, cycle);
     return AdjustedDate.of(nextBaseDate, holidayAdjustType.adjust(nextBaseDate, holidayJudger));

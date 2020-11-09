@@ -12,7 +12,7 @@ import tmngs.util.date.HolidayJudger;
  * 休日調整区分
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum HolidayAdjustType {
+public enum HolidayAdjustment {
   /** 調整なし */
   NONE(DateAdjuster.NOT_ADJUST, DateAdjuster.NOT_ADJUST),
   /** 前営業日 */
@@ -38,7 +38,7 @@ public enum HolidayAdjustType {
    * @return 休日調整後の日付
    */
   public LocalDate adjust(LocalDate target, HolidayJudger holidayJudger) {
-    if (HolidayAdjustType.NONE.equals(this) || !holidayJudger.isHoliday(target)) {
+    if (HolidayAdjustment.NONE.equals(this) || !holidayJudger.isHoliday(target)) {
       // 調整不要, もしくは休日ではない
       return target;
     }
@@ -50,8 +50,8 @@ public enum HolidayAdjustType {
     while (true) {
       i++;
       adjusted = adjuster.apply(adjusted);
-      if ((HolidayAdjustType.FIRST_BUSINESS_DAY.equals(this)
-          || HolidayAdjustType.LAST_BUSINESS_DAY.equals(this))
+      if ((HolidayAdjustment.FIRST_BUSINESS_DAY.equals(this)
+          || HolidayAdjustment.LAST_BUSINESS_DAY.equals(this))
           && (!fixedMonth.equals(adjusted.getMonth()))) {
         // 月を跨ぎ、かつ月跨ぎが許されない場合は逆向きに再調整する
         if (adjuster == reverser) {

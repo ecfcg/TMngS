@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import tmngs.dto.AdjustedDate;
 import tmngs.test.DataBaseTestBase;
 import tmngs.test.reflect.FieldAccessor;
-import tmngs.type.HolidayAdjustType;
+import tmngs.type.HolidayAdjustment;
 import tmngs.type.MonthlyCycleType;
 
 public class CycleCalculatorTest extends DataBaseTestBase {
@@ -35,6 +35,6 @@ public class CycleCalculatorTest extends DataBaseTestBase {
 
     assertEquals(AdjustedDate.of(expectedBase, expectedAdjusted),
         cycleCalculator.calcNextCycleByMonth(baseDate, 0, MonthlyCycleType.BASE_DAY,
-            HolidayAdjustType.BEFORE_BUSINESS_DAY));
+            HolidayAdjustment.BEFORE_BUSINESS_DAY));
   }
 }
