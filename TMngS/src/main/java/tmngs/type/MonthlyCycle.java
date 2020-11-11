@@ -6,7 +6,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 月次調整区分
+ * 月次サイクル
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum MonthlyCycle {
@@ -21,7 +21,7 @@ public enum MonthlyCycle {
   private final Function<LocalDate, LocalDate> adjuster;
 
   /**
-   * 基準日のサイクル月後の日付を取得する.
+   * 基準日の翌サイクルの日付を取得する.
    * 
    * @param baseDate 基準日
    * @param cycle サイクル月数
