@@ -2,6 +2,7 @@ package tmngs.type;
 
 import java.time.LocalDate;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import tmngs.util.date.DateAdjuster;
 import tmngs.util.date.HolidayJudger;
@@ -23,6 +24,7 @@ public enum HolidayAdjustment {
   LAST_BUSINESS_DAY(DateAdjuster.FOLLOWING_DAY);
 
   /** 休日調整時に利用する関数 */
+  @Getter
   private final DateAdjuster standardAdjuster;
 
   /**
