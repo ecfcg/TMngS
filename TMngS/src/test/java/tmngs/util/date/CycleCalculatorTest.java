@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import tmngs.dto.AdjustedDate;
 import tmngs.test.DataBaseTestBase;
 import tmngs.test.reflect.FieldAccessor;
-import tmngs.type.HolidayAdjustment;
 import tmngs.type.MonthlyCycle;
 
 public class CycleCalculatorTest extends DataBaseTestBase {

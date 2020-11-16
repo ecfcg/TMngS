@@ -1,4 +1,4 @@
-package tmngs.type;
+package tmngs.util.date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Path;
@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import tmngs.test.DataBaseTestBase;
 import tmngs.test.OnceDataManager;
 import tmngs.test.TestDataManager;
+import tmngs.util.date.HolidayAdjustment;
 import tmngs.util.date.HolidayJudger;
 
 public class HolidayAdjustmentTest extends DataBaseTestBase {
