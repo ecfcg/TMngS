@@ -1,4 +1,4 @@
-package tmngs.type;
+package tmngs.util.date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;

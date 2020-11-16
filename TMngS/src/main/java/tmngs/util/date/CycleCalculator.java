@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import tmngs.dto.AdjustedDate;
-import tmngs.type.MonthlyCycle;
 
 /**
  * 周期計算を行う

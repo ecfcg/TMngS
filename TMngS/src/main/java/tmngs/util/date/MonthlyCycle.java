@@ -1,4 +1,4 @@
-package tmngs.type;
+package tmngs.util.date;
 
 import java.time.LocalDate;
 import java.util.function.Function;

@@ -1,10 +1,11 @@
-package tmngs.type;
+package tmngs.util.date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import tmngs.test.DataBaseTestBase;
+import tmngs.util.date.DailyCycle;
 import tmngs.util.date.HolidayJudger;
 
 public class DailyCycleTest extends DataBaseTestBase {
