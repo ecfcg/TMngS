@@ -53,6 +53,12 @@ dependencies {
 
 test {
   useJUnitPlatform()
+  jvmArgs = ['--enable-preview']
+}
+
+sourceCompatibility = JavaVersion.VERSION_14
+tasks.withType(JavaCompile) {
+  options.compilerArgs += ['--enable-preview']
 }
 
 // Doma
@@ -97,6 +103,14 @@ domaCodeGen {
 
 // eclipse
 eclipse {
+  jdt {
+    file {
+      withProperties { props -> 
+        props['org.eclipse.jdt.core.compiler.problem.enablePreviewFeatures']= 'enabled'
+        props['org.eclipse.jdt.core.compiler.problem.reportPreviewFeatures']= 'ignore'
+      }
+    }
+  }
   classpath {
     file {
       whenMerged { classpath ->
