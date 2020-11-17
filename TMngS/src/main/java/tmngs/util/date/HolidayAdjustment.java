@@ -1,14 +1,10 @@
 package tmngs.util.date;
 
 import java.time.LocalDate;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 休日調整区分
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum HolidayAdjustment {
   /** 調整なし */
   NONE(DateAdjuster.NOT_ADJUST),
@@ -22,8 +18,21 @@ public enum HolidayAdjustment {
   LAST_BUSINESS_DAY(DateAdjuster.FOLLOWING_DAY);
 
   /** 休日調整時に利用する関数 */
-  @Getter
   private final DateAdjuster standardAdjuster;
+
+  /**
+   * @param standardAdjuster
+   */
+  private HolidayAdjustment(DateAdjuster standardAdjuster) {
+    this.standardAdjuster = standardAdjuster;
+  }
+
+  /**
+   * @return standardAdjuster
+   */
+  public final DateAdjuster getStandardAdjuster() {
+    return standardAdjuster;
+  }
 
   /**
    * 休日調整後の日付を取得する.

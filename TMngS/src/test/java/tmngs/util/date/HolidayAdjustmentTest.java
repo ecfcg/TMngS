@@ -3,39 +3,22 @@ package tmngs.util.date;
 import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.List;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import tmngs.test.DataBaseTestBase;
-import tmngs.test.OnceDataManager;
+import tmngs.test.CsvDataConverter;
 import tmngs.test.TestDataManager;
-import tmngs.util.date.HolidayAdjustment;
-import tmngs.util.date.HolidayJudger;
 
-public class HolidayAdjustmentTest extends DataBaseTestBase {
+public class HolidayAdjustmentTest {
   private static Path testDataDir = TestDataManager.getTestDataDir();
-  private static OnceDataManager odm =
-      OnceDataManager.of(List.of(testDataDir.resolve("adjustTest_Exception")));
 
   /** テスト時に利用する休日判定 */
   private HolidayJudger holidayJudger;
 
-  @BeforeAll
-  public static void setUpBeforeClass() {
-    // 他のテストに影響を与えないため事前に投入する.
-    odm.insert();
-  }
-
-  @AfterAll
-  public static void tearDownAfterClass() {
-    odm.truncate();
-  }
-
-  @Override
-  public void setUpEach() {
-    holidayJudger = HolidayJudger.create();
+  @BeforeEach
+  public void setUp() {
+    var holidays = CsvDataConverter.getLocalDate(testDataDir.resolve("adjustTest_Exception.csv"));
+    holidayJudger = HolidayJudger.create(holidays);
   }
 
   @ParameterizedTest

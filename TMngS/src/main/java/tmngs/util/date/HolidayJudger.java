@@ -2,30 +2,32 @@ package tmngs.util.date;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import tmngs.db.dao.DaoManager;
-import tmngs.db.entity.MHoliday;
 
 /**
  * 対象の日付が休日か判定する.
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class HolidayJudger {
   /** 休日一覧 */
   private final Set<LocalDate> holidays;
+
+  /**
+   * @param holidays
+   */
+  private HolidayJudger(Set<LocalDate> holidays) {
+    this.holidays = holidays;
+  }
 
   /**
    * インスタンスを生成する.
    * 
    * @return 新しいHolidayJudgerインスタンス
    */
-  public static HolidayJudger create() {
-    Set<LocalDate> holidays = DaoManager.createMHolidayDao().selectAll().stream()
-        .map(MHoliday::getHoliday).collect(Collectors.toSet());
-    return new HolidayJudger(holidays);
+  public static HolidayJudger create(Collection<LocalDate> holidays) {
+    var unmodifiable = holidays.stream().collect(Collectors.toUnmodifiableSet());
+    return new HolidayJudger(unmodifiable);
   }
 
   /**

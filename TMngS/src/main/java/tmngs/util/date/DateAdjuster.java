@@ -2,13 +2,10 @@ package tmngs.util.date;
 
 import java.time.LocalDate;
 import java.util.function.Function;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 日付調整計算関連ユーティリティ.
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum DateAdjuster {
   /** 調整しない. */
   NOT_ADJUST(Function.identity()),
@@ -21,6 +18,13 @@ public enum DateAdjuster {
 
   /** 調整関数 */
   private final Function<LocalDate, LocalDate> adjuster;
+
+  /**
+   * @param adjuster
+   */
+  private DateAdjuster(Function<LocalDate, LocalDate> adjuster) {
+    this.adjuster = adjuster;
+  }
 
   /** 調整を実行する */
   public LocalDate apply(LocalDate target) {

@@ -2,20 +2,13 @@ package tmngs.util.date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDate;
+import java.util.Collections;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import tmngs.test.DataBaseTestBase;
-import tmngs.util.date.DailyCycle;
-import tmngs.util.date.HolidayJudger;
 
-public class DailyCycleTest extends DataBaseTestBase {
+public class DailyCycleTest {
   /** テスト時に利用する休日判定 */
-  private HolidayJudger holidayJudger;
-
-  @Override
-  public void setUpEach() {
-    holidayJudger = HolidayJudger.create();
-  }
+  private HolidayJudger holidayJudger = HolidayJudger.create(Collections.emptySet());
 
   @ParameterizedTest
   @CsvSource(value = {"2020-04-30, 2020-05-04, 4"})
@@ -50,7 +43,7 @@ public class DailyCycleTest extends DataBaseTestBase {
 
   @ParameterizedTest
   @CsvSource(value = {"2020-08-31, 2020-08-28, 4", "2020-05-29, 2020-05-30, 4",
-      "2020-05-29, 2020-05-31, 4","2020-05-07, 2020-05-01, 4"})
+      "2020-05-29, 2020-05-31, 4", "2020-05-07, 2020-05-01, 4"})
   public void calcNextTest_LAST_BUSINESS_DAY(LocalDate expected, LocalDate target, int cycle) {
     assertEquals(expected, DailyCycle.LAST_BUSINESS_DAY.calcNext(target, cycle, holidayJudger));
   }

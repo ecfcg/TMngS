@@ -2,13 +2,10 @@ package tmngs.util.date;
 
 import java.time.LocalDate;
 import java.util.function.Function;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 月次サイクル
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum MonthlyCycle {
   /** 基準日 */
   BASE_DAY(Function.identity()),
@@ -19,6 +16,13 @@ public enum MonthlyCycle {
 
   /** 日を調整する関数 */
   private final Function<LocalDate, LocalDate> adjuster;
+
+  /**
+   * @param adjuster
+   */
+  private MonthlyCycle(Function<LocalDate, LocalDate> adjuster) {
+    this.adjuster = adjuster;
+  }
 
   /**
    * 基準日の翌サイクルの日付を取得する.

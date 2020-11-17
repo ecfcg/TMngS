@@ -1,13 +1,10 @@
 package tmngs.util.date;
 
 import java.time.LocalDate;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 
 /**
  * 日次サイクル
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum DailyCycle {
   /** 前日 */
   BEFORE_DAYS(HolidayAdjustment.NONE),
@@ -24,6 +21,13 @@ public enum DailyCycle {
 
   /** 休日調整 */
   private final HolidayAdjustment holidayAdjustment;
+
+  /**
+   * @param holidayAdjustment
+   */
+  private DailyCycle(HolidayAdjustment holidayAdjustment) {
+    this.holidayAdjustment = holidayAdjustment;
+  }
 
   /**
    * 基準日の翌サイクルの日付を取得する.

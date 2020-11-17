@@ -1,26 +1,30 @@
 package tmngs.util.date;
 
 import java.time.LocalDate;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import tmngs.dto.AdjustedDate;
 
 /**
  * 周期計算を行う
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class CycleCalculator {
 
   /** 休日判定 */
-  private final HolidayJudger holidayJudger = HolidayJudger.create();
+  private final HolidayJudger holidayJudger;
+
+  /**
+   * @param holidayJudger
+   */
+  private CycleCalculator(HolidayJudger holidayJudger) {
+    this.holidayJudger = holidayJudger;
+  }
 
   /**
    * 新しいインスタンスを作成する.
    * 
    * @return 新しいインスタンス
    */
-  public static CycleCalculator create() {
-    return new CycleCalculator();
+  public static CycleCalculator create(HolidayJudger holidayJudger) {
+    return new CycleCalculator(holidayJudger);
   }
 
   /**
@@ -37,6 +41,6 @@ public class CycleCalculator {
       MonthlyCycle montylyAdjustType, HolidayAdjustment holidayAdjustType) {
 
     LocalDate nextBaseDate = montylyAdjustType.calcNext(baseDate, cycle);
-    return AdjustedDate.of(nextBaseDate, holidayAdjustType.adjust(nextBaseDate, holidayJudger));
+    return new AdjustedDate(nextBaseDate, holidayAdjustType.adjust(nextBaseDate, holidayJudger));
   }
 }
